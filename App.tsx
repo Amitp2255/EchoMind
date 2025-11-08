@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import type { User } from 'firebase/auth';
+import { auth } from './services/firebase';
 import type { ChatMessage, MoodEntry, View, CustomMapping } from './types';
 import { Emotion } from './types';
 import ChatInterface from './components/ChatInterface';
 import MoodDashboard from './components/MoodDashboard';
 import Toolkit from './components/Toolkit';
 import { getEmpatheticReplyAndEmotion, getDashboardInsights } from './services/geminiService';
-import { ChatIcon, ChartBarIcon, SparklesIcon } from './components/icons/Icons';
+import { ChatIcon, ChartBarIcon, SparklesIcon, LogoutIcon } from './components/icons/Icons';
 
 interface AppProps {
   user: User;
@@ -123,6 +124,14 @@ const App: React.FC<AppProps> = ({ user }) => {
     setCustomMappings(prevMappings => prevMappings.filter(m => m.id !== mappingId));
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   // FIX: Updated the type for the 'icon' prop to specify that it can accept a className. This resolves the TypeScript error with React.cloneElement.
   const NavButton = ({ targetView, icon, label }: { targetView: View; icon: React.ReactElement<{ className?: string }>, label: string }) => (
     <button
@@ -149,7 +158,11 @@ const App: React.FC<AppProps> = ({ user }) => {
           </h1>
           <p className="text-sm text-slate-400">Your AI-Powered Emotional Co-Pilot</p>
         </div>
-        <div className="w-10"></div> {/* Spacer for symmetry */}
+        <div className="w-10 flex justify-end">
+           <button onClick={handleLogout} className="text-slate-400 hover:text-white transition-colors" aria-label="Sign out">
+            <LogoutIcon className="w-6 h-6" />
+          </button>
+        </div>
       </header>
 
       <main key={view} className="flex-1 overflow-y-auto p-4 animate-fade-in">
