@@ -1,0 +1,7 @@
+{
+  "name": "EchoMind – Your AI-Powered Emotional Co-Pilot",
+  "description": "An AI-powered emotional co-pilot that helps you reflect on your thoughts, analyze your emotions, and grow emotionally intelligent. It acts as an empathetic companion, listening, understanding, and guiding you toward self-awareness.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

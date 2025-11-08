@@ -1,2 +1,14 @@
-# EchoMind
-EchoMind is your private AI emotional co-pilot. Reflect on feelings through empathetic chat, visualize patterns on a mood dashboard, and use a wellness toolkit with guided meditations and multilingual support. It's a safe, non-judgmental space to understand your emotions and foster self-awareness, helping you feel, reflect, and grow.
+This contains everything you need to run your app locally.
+
+View your app in AI Studio: https://ai.studio/apps/drive/1HqyqNBcy2fH7aJzbrvBeezW4780ir0mu
+
+## Run Locally
+
+**Prerequisites:**  Node.js
+
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
