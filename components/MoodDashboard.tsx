@@ -61,11 +61,15 @@ const MoodDashboard: React.FC<MoodDashboardProps> = ({
             return acc;
         }, {} as Record<Emotion, number>);
         
-        const dominantEmotion = Object.keys(emotionCountsForDay).reduce((a, b) => 
-            emotionCountsForDay[a as Emotion] > emotionCountsForDay[b as Emotion] ? a : b
-        ) as Emotion;
-        
-        moods[dayString] = dominantEmotion;
+        // FIX: Replaced reduce logic with a safer implementation to find the dominant emotion.
+        // This prevents a potential runtime error on empty arrays and clarifies type inference for the compiler, resolving the 'Type 'unknown' cannot be used as an index type' error.
+        const emotionKeys = Object.keys(emotionCountsForDay) as Emotion[];
+        if (emotionKeys.length > 0) {
+          const dominantEmotion = emotionKeys.reduce((a, b) =>
+            emotionCountsForDay[a] > emotionCountsForDay[b] ? a : b
+          );
+          moods[dayString] = dominantEmotion;
+        }
     });
 
     return moods;
